@@ -44,6 +44,30 @@ class SinglyLinkedList {
     }
   }
 
+  insertAt(position, data) {
+    let previousNode = this.head
+    let newNode = new SinglyLinkedListNode(data)
+
+    const traverseList = (position, list, counter) => {
+      if(counter === position - 1) {
+        previousNode = list.next
+        newNode.next = previousNode
+        list.next = newNode
+      } else {
+        return traverseList(position, list.next, counter + 1)
+      }
+    }
+
+    if(position === 1) {
+      this.head = newNode
+      this.head.next = previousNode
+    } else if(position > this.count() + 1) {
+      throw `Position too long, use less than ${this.count()}`
+    } else {
+      traverseList(position, this.head, 1)
+    }
+  }
+
   count() {
     let currentNode = this.head
     let counter = 0
@@ -60,5 +84,14 @@ class SinglyLinkedList {
 }
 
 
-let auto = insertListSize(new SinglyLinkedList(), 10)
+let auto = insertListSize(new SinglyLinkedList(), 5)
+
+auto.insertAt(1, 'Head')
+auto.insertAt(1, 'Head 1')
+auto.insertAt(3, 'Head 3')
+auto.insertAt(9, 'Head 3')
+auto.insertAt(10, 'Last')
+
+
 printListValues(auto)
+console.log(auto.count())
