@@ -97,19 +97,31 @@ class SinglyLinkedList {
       previousNode.next = null
     }
   }
+
+  deleteAt(position) {
+    let currentNode = this.head
+    let previousNode = this.head
+
+    const deleteNode = (node, counter) => {
+      if(counter === position - 1) {
+        previousNode = node
+        currentNode = node.next
+        return previousNode.next = currentNode.next
+      } else {
+        return deleteNode(node.next, counter + 1)
+      }
+    }
+
+    if(position === 1) {
+      currentNode = previousNode.next
+      this.head = currentNode
+    } else if(position > this.count() + 1) {
+      throw 'position too long'
+    } else {
+      deleteNode(this.head, 1)
+    }
+  }
 }
 
 let auto = insertListSize(new SinglyLinkedList(), 7)
-
-
-auto.delete()
-auto.delete()
-auto.delete()
-auto.delete()
-auto.delete()
-auto.delete()
-auto.delete()
-
-
-
 printListValues(auto)
