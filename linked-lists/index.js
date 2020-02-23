@@ -9,7 +9,6 @@ const insertListSize = (list, size) => {
 
 const printListValues = (list) => {
   if(list === null) {
-    console.log(list)
   } else if(list.head) {
     console.log(list.head.data)
     return printListValues(list.head.next)
@@ -81,17 +80,36 @@ class SinglyLinkedList {
       return counter
     }
   }
+
+  delete() {
+    let previousNode = this.head
+    let currentNode = this.head
+    if(this.head === null) {
+      throw `You can't delete an element in a Empty list`
+
+    } else if(this.head.next === null) {
+      this.head.data = null
+    } else {
+      while (currentNode.next != null) {
+        previousNode = currentNode
+        currentNode = currentNode.next
+      }
+      previousNode.next = null
+    }
+  }
 }
 
+let auto = insertListSize(new SinglyLinkedList(), 7)
 
-let auto = insertListSize(new SinglyLinkedList(), 5)
 
-auto.insertAt(1, 'Head')
-auto.insertAt(1, 'Head 1')
-auto.insertAt(3, 'Head 3')
-auto.insertAt(9, 'Head 3')
-auto.insertAt(10, 'Last')
+auto.delete()
+auto.delete()
+auto.delete()
+auto.delete()
+auto.delete()
+auto.delete()
+auto.delete()
+
 
 
 printListValues(auto)
-console.log(auto.count())
