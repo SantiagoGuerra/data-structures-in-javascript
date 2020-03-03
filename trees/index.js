@@ -37,15 +37,59 @@ class BinarySearchTree {
       insertNode(this.root, key)
     }
   }
+
+
+  preOrderTraverse(callback) {
+    const preOrderTraverseNode = (node, callback) => {
+      if(node != null) {
+        callback(node.key)
+        preOrderTraverseNode(node.left, callback)
+        preOrderTraverseNode(node.right, callback)
+      }
+    }
+    
+    return preOrderTraverseNode(this.root, callback)
+  }
+
+  inOrderTraverse(callback) {
+    const inOrderTraverseNode = (node, callback) => {
+      if (node != null) {
+        inOrderTraverseNode(node.left, callback)
+        callback(node.key)
+        inOrderTraverseNode(node.right, callback)
+      }
+    }
+
+    return inOrderTraverseNode(this.root, callback)
+  }
+
+  postOrderTraverse(callback) {
+    const postOrderTraverseNode = (node, callback) => {
+      if(node != null) {
+        postOrderTraverseNode(node.left, callback)
+        postOrderTraverseNode(node.right, callback)
+        callback(node.key)
+      }
+    }
+
+    return postOrderTraverseNode(this.root, callback)
+  }
 }
 
 let bst = new BinarySearchTree()
 
-bst.insert(5)
-bst.insert(4)
+bst.insert(12)
 bst.insert(6)
+bst.insert(24)
+bst.insert(3)
+bst.insert(9)
+bst.insert(18)
+bst.insert(22)
 
 
+bst.preOrderTraverse(key => console.log(key))
+console.log('----------------------')
+bst.inOrderTraverse(key => console.log(key))
+console.log('----------------------')
+bst.postOrderTraverse(key => console.log(key))
 
-
-console.log(bst.root)
